@@ -1,0 +1,13 @@
+PODS:
+  - Mapbox-iOS-SDK (3.0.0)
+  - PubNub (3.7.2)
+
+DEPENDENCIES:
+  - Mapbox-iOS-SDK
+  - PubNub (= 3.7.2)
+
+SPEC CHECKSUMS:
+  Mapbox-iOS-SDK: 5e7bafc554a15ebfc615d8b0fa0a0b5d31faac70
+  PubNub: 726606d76b75312fe79e393f79f0c16338a4a651
+
+COCOAPODS: 0.37.2

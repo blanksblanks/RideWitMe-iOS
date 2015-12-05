@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5F6D0C1D-BB2F-4EC7-A673-7140A34E9FA0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>53F467C6945176A9317FC7D9E877FB07174D5CAC</key>
+		<string>https://github.com/blanksblanks/RideWitMe.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>citiBike/citiBike.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>53F467C6945176A9317FC7D9E877FB07174D5CAC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/blanksblanks/RideWitMe.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>53F467C6945176A9317FC7D9E877FB07174D5CAC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>53F467C6945176A9317FC7D9E877FB07174D5CAC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RideWitMe</string>
+		</dict>
+	</array>
+</dict>
+</plist>
