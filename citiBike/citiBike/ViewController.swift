@@ -33,6 +33,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         
         // Do any additional setup after loading the view, typically from a nib.
         //initalize the map view
+        myLocations.removeAll(keepCapacity: false)
         theMap=MGLMapView(frame: view.bounds)
         theMap.autoresizingMask = .FlexibleWidth | .FlexibleHeight
         
@@ -43,18 +44,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         theMap.delegate=self
         theMap.showsUserLocation=true
         view.addSubview(theMap)
+        
     }
     
-    
+   
     
     func locationManager(manager:CLLocationManager, didUpdateLocations locations:[AnyObject]) {
         
         myLocations.append(locations[0] as! CLLocation)
-       
-        let spanX = 0.007
-        let spanY = 0.007
-//        var newRegion = MKCoordinateRegion(center: theMap.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
-//        theMap.setRegion(newRegion, animated: true)
         
         if (myLocations.count > 1){
             var sourceIndex = myLocations.count - 1
