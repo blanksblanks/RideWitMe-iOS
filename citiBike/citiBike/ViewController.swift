@@ -35,7 +35,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         //initalize the map view
         myLocations.removeAll(keepCapacity: false)
         theMap=MGLMapView(frame: view.bounds)
-        theMap.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        theMap.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
         // set the map's center coordinate
         theMap.setCenterCoordinate(CLLocationCoordinate2D(latitude: 40.7326808,
@@ -49,13 +49,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     
    
     
-    func locationManager(manager:CLLocationManager, didUpdateLocations locations:[AnyObject]) {
+    func locationManager(manager:CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         
-        myLocations.append(locations[0] as! CLLocation)
+        myLocations.append(locations[0] )
         
         if (myLocations.count > 1){
-            var sourceIndex = myLocations.count - 1
-            var destinationIndex = myLocations.count - 2
+            let sourceIndex = myLocations.count - 1
+            let destinationIndex = myLocations.count - 2
             
             let c1 = myLocations[sourceIndex].coordinate
             let c2 = myLocations[destinationIndex].coordinate
@@ -63,7 +63,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             
             self.currentLocation=myLocations[destinationIndex]
             
-            var polyline = MGLPolyline(coordinates: &a, count: UInt(a.count))
+            let polyline = MGLPolyline(coordinates: &a, count: UInt(a.count))
             theMap.addAnnotation(polyline)
             self.updateMapFrame()
             

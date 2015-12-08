@@ -2,7 +2,6 @@
 #import <UIKit/UIKit.h>
 #endif
 
-#import "Pods-citiBike-environment.h"
 //
 // Prefix header for all source files of the 'pubnub' target in the 'pubnub' project
 //

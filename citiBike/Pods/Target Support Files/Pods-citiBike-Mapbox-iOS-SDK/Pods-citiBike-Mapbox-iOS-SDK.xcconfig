@@ -1,2 +1,0 @@
-PODS_CITIBIKE_MAPBOX_IOS_SDK_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/Mapbox-iOS-SDK"
-PODS_CITIBIKE_MAPBOX_IOS_SDK_OTHER_LDFLAGS = -l"Mapbox" -l"c++" -l"sqlite3" -l"z" -framework "CoreLocation" -framework "GLKit" -framework "ImageIO" -framework "MobileCoreServices" -framework "QuartzCore" -framework "SystemConfiguration"

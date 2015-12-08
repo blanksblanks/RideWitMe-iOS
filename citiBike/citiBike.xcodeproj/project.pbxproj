@@ -153,6 +153,7 @@
 				F7BF3B7F1C1347BA000D4E28 /* Frameworks */,
 				F7BF3B801C1347BA000D4E28 /* Resources */,
 				8CB99C7D3E71CC0AB20095E8 /* Copy Pods Resources */,
+				8228DAE715D73A5095EF3004 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,6 +188,7 @@
 		F7BF3B7A1C1347BA000D4E28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "___mengyu wu___";
 				TargetAttributes = {
@@ -240,6 +242,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8228DAE715D73A5095EF3004 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-citiBike/Pods-citiBike-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8CB99C7D3E71CC0AB20095E8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
