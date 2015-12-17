@@ -18,6 +18,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     private var polylineAnnotation = MGLPointAnnotation()
     private var isFirstMessage = true
     var manager:CLLocationManager!
+    var label = UILabel(frame: CGRectMake(0, 0, 300, 21))
+    //share location button
+    @IBAction func shareLocation(sender: AnyObject) {
+        println("share my location button pressed")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +48,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             zoomLevel: 12, animated: false)
         theMap.delegate=self
         theMap.showsUserLocation=true
+        
+        
+        label.center = CGPointMake(160, 300)
+        label.textAlignment = NSTextAlignment.Center
+        theMap.addSubview(label)
         view.addSubview(theMap)
+        
         
     }
     
    
     
     func locationManager(manager:CLLocationManager, didUpdateLocations locations:[AnyObject]) {
+        
         
         myLocations.append(locations[0] as! CLLocation)
         
@@ -62,6 +74,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             var a = [c1, c2]
             
             self.currentLocation=myLocations[destinationIndex]
+            println("\(self.currentLocation.coordinate.latitude)  \(self.currentLocation.coordinate.longitude)")
+            var lat=Int(self.currentLocation.coordinate.latitude)
+            var log=Int((self.currentLocation.coordinate.longitude))
+            var speed=Int(self.currentLocation.speed)
+            label.text="lat:\(lat) log:\(log) speed:\(speed)"
             
             var polyline = MGLPolyline(coordinates: &a, count: UInt(a.count))
             theMap.addAnnotation(polyline)
