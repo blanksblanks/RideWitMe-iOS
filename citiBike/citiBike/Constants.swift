@@ -19,4 +19,4 @@ import Foundation
 let CognitoRegionType = AWSRegionType.USEast1
 let DefaultServiceRegionType = AWSRegionType.USEast1
 let CognitoIdentityPoolId = "us-east-1:d40e7a63-5d37-4eaf-9c2b-109d1a320637"
-let AWSSampleDynamoDBTableName = "DynamoDB-OM-SwiftSample"
+let AWSSampleDynamoDBTableName = "DynamoDB-citiBike"
