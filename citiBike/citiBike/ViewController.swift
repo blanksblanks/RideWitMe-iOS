@@ -19,6 +19,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     private var isFirstMessage = true
     var manager:CLLocationManager!
     var label = UILabel(frame: CGRectMake(0, 0, 300, 21))
+    
+    var groupTitleField: UITextField?
+    var passwordField:UITextField?
+    
     //share location button
     @IBAction func shareLocation(sender: AnyObject) {
         println("share my location button pressed")
@@ -30,6 +34,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             NSLog("OK Pressed")
+            
+            if let title=self.groupTitleField?.text{
+              self.createGroup(title, password: self.passwordField?.text)
+            }else{
+                println("Please enter group name!")
+            }
+           
+           
         }
         var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
@@ -43,15 +55,58 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    func createGroup(groupTitle:String, password:String?){
+        let groupTableRow=DDBTableRow()
+        groupTableRow.GroupTitle=groupTitle
+        groupTableRow.GroupId = groupTitle
+        if let pwd=password{
+            groupTableRow.Password=pwd
+        }else{
+            groupTableRow.Password=""
+        }
+        self.insertTableRow(groupTableRow)
+    }
+    
+    
+    func insertTableRow(tableRow: DDBTableRow) {
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        
+        dynamoDBObjectMapper.save(tableRow) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            if (task.error == nil) {
+                let alertController = UIAlertController(title: "Succeeded", message: "Successfully inserted the data into the table.", preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { UIAlertAction-> Void in
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                
+            } else {
+                print("Error: \(task.error)")
+                
+                let alertController = UIAlertController(title: "Failed to insert the data into the table.", message: task.error.description, preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel){ UIAlertAction -> Void in
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            
+            return nil
+        })
+    }
+
+    
+    
     func groupNameTextField(textField: UITextField!){
         // add the text field and make the result global
         textField.placeholder = "GroupName"
+        groupTitleField=textField
         
     }
     
     func passwordTextField(textField: UITextField!){
         // add the text field and make the result global
         textField.placeholder = "Password"
+        passwordField=textField
         
     }
     
