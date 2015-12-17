@@ -9,51 +9,49 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
 
-    var theMap: MGLMapView!
+    var mapView: MGLMapView!
+    var manager: CLLocationManager!
+
     private var myLocations = [CLLocation]()
     private var currentPositionAnnotation = MGLPointAnnotation()
     private var currentLocation = CLLocation()
     private var polylineAnnotation = MGLPointAnnotation()
     private var isFirstMessage = true
-    var manager:CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
    
-        //Setup our location Manager
+        // Setup location manager
         manager = CLLocationManager()
-        manager.delegate=self
-        manager.desiredAccuracy=kCLLocationAccuracyBest
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
         
-       
         
-        // Do any additional setup after loading the view, typically from a nib.
-        //initalize the map view
+        // Do additional setup after loading the view, typically from a nib.
         myLocations.removeAll(keepCapacity: false)
-        theMap=MGLMapView(frame: view.bounds)
-        theMap.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        mapView = MGLMapView(frame: view.bounds)
+        mapView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
         
-        // set the map's center coordinate
-        theMap.setCenterCoordinate(CLLocationCoordinate2D(latitude: 40.7326808,
+        // Set the map's center coordinate to New York, New York
+        mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 40.7326808,
             longitude: -73.9843407),
             zoomLevel: 12, animated: false)
-        theMap.delegate=self
-        theMap.showsUserLocation=true
-        view.addSubview(theMap)
         
+        // Set the delegate property of our map view to self after instantiating it
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        view.addSubview(mapView)
     }
     
-   
-    
-    func locationManager(manager:CLLocationManager, didUpdateLocations locations:[AnyObject]) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations:[AnyObject]) {
         
         myLocations.append(locations[0] as! CLLocation)
         
-        if (myLocations.count > 1){
+        if (myLocations.count > 1) {
             var sourceIndex = myLocations.count - 1
             var destinationIndex = myLocations.count - 2
             
@@ -64,15 +62,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             self.currentLocation=myLocations[destinationIndex]
             
             var polyline = MGLPolyline(coordinates: &a, count: UInt(a.count))
-            theMap.addAnnotation(polyline)
+            mapView.addAnnotation(polyline)
             self.updateMapFrame()
             
         }
     }
     
-    
     func updateMapFrame() {
-        self.theMap.centerCoordinate = self.currentLocation.coordinate
+        self.mapView.centerCoordinate = self.currentLocation.coordinate
     }
 
     func mapView(mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
@@ -89,7 +86,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         // Give our polyline a unique color by checking for its `title` property
         return UIColor.blueColor()
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
