@@ -11,4 +11,5 @@
 #import <Foundation/Foundation.h>
 #import "PNImports.h"
 #import "MapBox.h"
+#import <AWSDynamoDB/AWSDynamoDB.h>
 #endif

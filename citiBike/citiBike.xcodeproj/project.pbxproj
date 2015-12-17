@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CDFE9A30B2DCF33628EB7357 /* libPods-citiBike.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A62F2DA222F2C51244E2AF61 /* libPods-citiBike.a */; };
 		F78F0A181C1354AF00667A32 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F78F0A171C1354AF00667A32 /* Settings.bundle */; };
+		F792669C1C233ABB007D8605 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792669B1C233ABB007D8605 /* Constants.swift */; };
 		F7BF3B881C1347BA000D4E28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BF3B871C1347BA000D4E28 /* AppDelegate.swift */; };
 		F7BF3B8A1C1347BA000D4E28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BF3B891C1347BA000D4E28 /* ViewController.swift */; };
 		F7BF3B8D1C1347BA000D4E28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7BF3B8B1C1347BA000D4E28 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		A62F2DA222F2C51244E2AF61 /* libPods-citiBike.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-citiBike.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDCF3CE1D7A120A964FA8FFE /* Pods-citiBike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-citiBike.release.xcconfig"; path = "Pods/Target Support Files/Pods-citiBike/Pods-citiBike.release.xcconfig"; sourceTree = "<group>"; };
 		F78F0A171C1354AF00667A32 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F792669B1C233ABB007D8605 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F7BF3B821C1347BA000D4E28 /* citiBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = citiBike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BF3B861C1347BA000D4E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7BF3B871C1347BA000D4E28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		F7BF3B841C1347BA000D4E28 /* citiBike */ = {
 			isa = PBXGroup;
 			children = (
+				F792669B1C233ABB007D8605 /* Constants.swift */,
 				F78F0A171C1354AF00667A32 /* Settings.bundle */,
 				F7BF3B871C1347BA000D4E28 /* AppDelegate.swift */,
 				F7BF3B891C1347BA000D4E28 /* ViewController.swift */,
@@ -279,6 +282,7 @@
 			files = (
 				F7BF3B8A1C1347BA000D4E28 /* ViewController.swift in Sources */,
 				F7BF3B881C1347BA000D4E28 /* AppDelegate.swift in Sources */,
+				F792669C1C233ABB007D8605 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

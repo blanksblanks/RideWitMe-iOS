@@ -22,6 +22,37 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     //share location button
     @IBAction func shareLocation(sender: AnyObject) {
         println("share my location button pressed")
+        let alert = UIAlertController(title: "Share Location", message: "Create A Group", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addTextFieldWithConfigurationHandler(groupNameTextField)
+        alert.addTextFieldWithConfigurationHandler(passwordTextField)
+        // Create the actions
+    
+        var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            NSLog("OK Pressed")
+        }
+        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            UIAlertAction in
+            NSLog("Cancel Pressed")
+        }
+        
+        // Add the actions
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func groupNameTextField(textField: UITextField!){
+        // add the text field and make the result global
+        textField.placeholder = "GroupName"
+        
+    }
+    
+    func passwordTextField(textField: UITextField!){
+        // add the text field and make the result global
+        textField.placeholder = "Password"
+        
     }
     
     override func viewDidLoad() {

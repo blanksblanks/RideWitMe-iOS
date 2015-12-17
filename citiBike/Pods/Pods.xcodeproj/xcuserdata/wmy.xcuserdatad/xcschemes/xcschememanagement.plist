@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-citiBike-AWSCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-citiBike-AWSDynamoDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-citiBike-Mapbox-iOS-SDK-Mapbox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4D8060811B435E95A8AD6C65</key>
+		<key>028AD4CA5F7F8F39FC81AFB8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2D7B248E33930CD0E5D8ACB</key>
+		<key>3E1679B27AEC0AC620EAF6CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B0A9C6253CD67C5647A2A5F5</key>
+		<key>9E2A632B7CC0BE96CCEA780C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C108C13C56267073FC77C239</key>
+		<key>AA5F854AEA478C7A69A1270D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B1D1C63EFEFDC5464D19F906</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B2D5E8C0C4B1A172C24FB2F9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
