@@ -45,10 +45,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         mapView.delegate = self
         mapView.showsUserLocation = true
         view.addSubview(mapView)
+        
+        // Declare the marker `hello` and set its coordinates, title, and subtitle
+        let hello = MGLPointAnnotation()
+        hello.coordinate = CLLocationCoordinate2D(latitude: 40.7326808, longitude: -73.9843407)
+        hello.title = "Hello world!"
+        hello.subtitle = "Welcome to my marker"
+        
+        // Add marker `hello` to the map
+        mapView.addAnnotation(hello)
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations:[AnyObject]) {
-        
         myLocations.append(locations[0] as! CLLocation)
         
         if (myLocations.count > 1) {
@@ -71,25 +79,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
     func updateMapFrame() {
         self.mapView.centerCoordinate = self.currentLocation.coordinate
     }
+    
+    // Use the default marker
+    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        return nil
+    }
+    
+    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
 
+    // Set the alpha for all shape annotations to 1 (full opacity)
     func mapView(mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
-        // Set the alpha for all shape annotations to 1 (full opacity)
         return 1
     }
     
+    // Set the line width for polyline annotations
     func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        // Set the line width for polyline annotations
         return 3.0
     }
     
+    // Give our polyline a unique color by checking for its `title` property
     func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-        // Give our polyline a unique color by checking for its `title` property
         return UIColor.blueColor()
     }
-
+    
+    // Dispose of any resources that can be recreated.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 
