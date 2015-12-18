@@ -63,6 +63,19 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
                       
                     }
                     
+                    
+                    
+                    if (self.coordinates.count > 1){
+                        var sourceIndex = self.coordinates.count - 1
+                        var destinationIndex = self.coordinates.count - 2
+                        
+                        let c1 = self.coordinates[sourceIndex]
+                        let c2 = self.coordinates[destinationIndex]
+                        var a = [c1, c2]
+                        var polyline = MGLPolyline(coordinates: &a, count: UInt(a.count))
+                        self.mapView.addAnnotation(polyline)
+                    }
+                    
                      self.updateMapFrame()
 
                 }
