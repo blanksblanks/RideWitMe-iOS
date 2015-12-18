@@ -157,13 +157,13 @@ class GroupTableViewController: UITableViewController {
     }
     
 
-    /*
+
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
         return true
     }
-    */
+    
 
     /*
     // Override to support editing the table view.
@@ -176,6 +176,57 @@ class GroupTableViewController: UITableViewController {
         }    
     }
     */
+    
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            if var myTableRows = self.groupTableRows {
+                let item = myTableRows[indexPath.row]
+                self.deleteTableRow(item)
+                myTableRows.removeAtIndex(indexPath.row)
+                self.groupTableRows = myTableRows
+                
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            
+            
+        }
+    }
+    
+    func deleteTableRow(row: DDBTableRow) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        dynamoDBObjectMapper.remove(row).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            
+            if ((task.error) != nil) {
+                print("Error: \(task.error)")
+                
+                let alertController = UIAlertController(title: "Failed to delete a row.", message: task.error.description, preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel){UIAlertAction -> Void in
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                
+            }
+            return nil
+        })
+        
+    }
+
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+    }
+
+    
+    
 
     /*
     // Override to support rearranging the table view.

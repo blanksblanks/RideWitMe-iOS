@@ -22,7 +22,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     
     var groupTitleField: UITextField?
     var passwordField:UITextField?
-    var tableRow:DDBTableRow?
+    var locationInfo:DDBTableRow?
     
     //share location button
     @IBAction func shareLocation(sender: AnyObject) {
@@ -79,7 +79,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
                 }
                 alertController.addAction(okAction)
                 self.presentViewController(alertController, animated: true, completion: nil)
-                self.tableRow=tableRow
+                self.locationInfo=tableRow
                 
             } else {
                 print("Error: \(task.error)")
@@ -95,7 +95,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         })
     }
     
-    func updateLocation(tableRow: DDBTableRow, lat:Int, log:Int){
+    func updateLocation(tableRow: DDBTableRow, lat:Double, log:Double){
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         println("update group:\(tableRow.GroupId)")
         tableRow.Lat=lat
@@ -103,11 +103,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
         
         dynamoDBObjectMapper .save(tableRow) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
             if (task.error == nil) {
-                let alertController = UIAlertController(title: "Succeeded", message: "Successfully updated the data into the table.", preferredStyle: UIAlertControllerStyle.Alert)
-                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { UIAlertAction -> Void in
-                }
-                alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                println("update Success")
               
             } else {
                 print("Error: \(task.error)")
@@ -191,11 +187,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             
             self.currentLocation=myLocations[destinationIndex]
             println("\(self.currentLocation.coordinate.latitude)  \(self.currentLocation.coordinate.longitude)")
-            var lat=Int(self.currentLocation.coordinate.latitude)
-            var log=Int((self.currentLocation.coordinate.longitude))
+            var lat=Double(round(self.currentLocation.coordinate.latitude*100)/100)
+            var log=Double(round(self.currentLocation.coordinate.longitude*100)/100)
             var speed=Int(self.currentLocation.speed)
             label.text="lat:\(lat) log:\(log) speed:\(speed)"
-            if let tableRow=self.tableRow{
+            if let tableRow=self.locationInfo{
                  println("update location")
                  updateLocation(tableRow, lat:lat, log:log)
             }
