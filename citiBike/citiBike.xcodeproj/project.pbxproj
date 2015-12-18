@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CDFE9A30B2DCF33628EB7357 /* libPods-citiBike.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A62F2DA222F2C51244E2AF61 /* libPods-citiBike.a */; };
+		F72757681C239BCC00889004 /* GroupLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72757671C239BCC00889004 /* GroupLocationViewController.swift */; };
 		F78F0A181C1354AF00667A32 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F78F0A171C1354AF00667A32 /* Settings.bundle */; };
 		F792669C1C233ABB007D8605 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792669B1C233ABB007D8605 /* Constants.swift */; };
 		F792669E1C233C3E007D8605 /* DDBDynamoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792669D1C233C3E007D8605 /* DDBDynamoDBManager.swift */; };
@@ -34,6 +35,7 @@
 		774E9D3C91D963DDF746E260 /* Pods-citiBike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-citiBike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-citiBike/Pods-citiBike.debug.xcconfig"; sourceTree = "<group>"; };
 		A62F2DA222F2C51244E2AF61 /* libPods-citiBike.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-citiBike.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDCF3CE1D7A120A964FA8FFE /* Pods-citiBike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-citiBike.release.xcconfig"; path = "Pods/Target Support Files/Pods-citiBike/Pods-citiBike.release.xcconfig"; sourceTree = "<group>"; };
+		F72757671C239BCC00889004 /* GroupLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupLocationViewController.swift; sourceTree = "<group>"; };
 		F78F0A171C1354AF00667A32 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F792669B1C233ABB007D8605 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F792669D1C233C3E007D8605 /* DDBDynamoDBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDBDynamoDBManager.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				F792669D1C233C3E007D8605 /* DDBDynamoDBManager.swift */,
 				F79266A91C2347FC007D8605 /* GroupTableViewController.swift */,
+				F72757671C239BCC00889004 /* GroupLocationViewController.swift */,
 				F792669B1C233ABB007D8605 /* Constants.swift */,
 				F78F0A171C1354AF00667A32 /* Settings.bundle */,
 				F7BF3B871C1347BA000D4E28 /* AppDelegate.swift */,
@@ -291,6 +294,7 @@
 				F7BF3B881C1347BA000D4E28 /* AppDelegate.swift in Sources */,
 				F792669E1C233C3E007D8605 /* DDBDynamoDBManager.swift in Sources */,
 				F792669C1C233ABB007D8605 /* Constants.swift in Sources */,
+				F72757681C239BCC00889004 /* GroupLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

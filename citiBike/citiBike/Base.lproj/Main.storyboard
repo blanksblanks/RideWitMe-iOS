@@ -36,16 +36,17 @@
                     <navigationItem key="navigationItem" id="X0Z-5z-fU8"/>
                     <connections>
                         <segue destination="eKx-fG-YbT" kind="presentation" identifier="DDBLoadingViewSegue" id="KFV-fg-ADV"/>
+                        <segue destination="YWN-iF-bWv" kind="show" identifier="DDBSeguePushGroupLocationViewController" id="42t-Ir-hPc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCi-m6-lyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="805" y="-347"/>
         </scene>
-        <!--View Controller-->
+        <!--Group Location View Controller-->
         <scene sceneID="hRL-bo-xIG">
             <objects>
-                <viewController id="YWN-iF-bWv" sceneMemberID="viewController">
+                <viewController id="YWN-iF-bWv" customClass="GroupLocationViewController" customModule="citiBike" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WMR-7b-P8j"/>
                         <viewControllerLayoutGuide type="bottom" id="zE9-IA-Rua"/>
@@ -58,7 +59,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB1-xy-8yS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="805" y="352"/>
+            <point key="canvasLocation" x="919" y="312"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="bAC-Gm-hli">

@@ -187,10 +187,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             
             self.currentLocation=myLocations[destinationIndex]
             println("\(self.currentLocation.coordinate.latitude)  \(self.currentLocation.coordinate.longitude)")
-            var lat=Double(round(self.currentLocation.coordinate.latitude*100)/100)
-            var log=Double(round(self.currentLocation.coordinate.longitude*100)/100)
+            var latLabel=Double(round(self.currentLocation.coordinate.latitude*100)/100)
+            var logLabel=Double(round(self.currentLocation.coordinate.longitude*100)/100)
+            var lat=Double(self.currentLocation.coordinate.latitude)
+            var log=Double(self.currentLocation.coordinate.longitude)
             var speed=Int(self.currentLocation.speed)
-            label.text="lat:\(lat) log:\(log) speed:\(speed)"
+            label.text="lat:\(latLabel) log:\(logLabel) speed:\(speed)"
             if let tableRow=self.locationInfo{
                  println("update location")
                  updateLocation(tableRow, lat:lat, log:log)

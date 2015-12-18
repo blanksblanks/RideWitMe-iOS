@@ -222,11 +222,31 @@ class GroupTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+        //also need to check password
+        self.performSegueWithIdentifier("DDBSeguePushGroupLocationViewController", sender: tableView.cellForRowAtIndexPath(indexPath))
     }
 
     
-    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "DDBSeguePushGroupLocationViewController" {
+            let detailViewController = segue.destinationViewController as! GroupLocationViewController
+            if sender != nil {
+                
+                    let cell = sender as! UITableViewCell
+                
+                    let indexPath = self.tableView.indexPathForCell(cell)
+                    let tableRow = self.groupTableRows?[indexPath!.row]
+                    detailViewController.groupLocationInfo = tableRow
+
+            }
+        }
+        
+        
+        
+    }
 
     /*
     // Override to support rearranging the table view.
