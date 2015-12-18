@@ -16,18 +16,87 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
     
     var mapView: MGLMapView!
     
-    var corrdinats:[CLLocationCoordinate2D]=[]
+    var coordinates:[CLLocationCoordinate2D]=[]
+    var currentLocation:CLLocationCoordinate2D?
     
     var timer = NSTimer()
     
     func updateLocation()
     {
         NSLog("hello World")
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        
+        //Query using GSI index table
+        //What is the top score ever recorded for the game Meteor Blasters?
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.hashKeyValues = groupLocationInfo?.GroupTitle;
+        queryExpression.hashKeyAttribute = "GroupTitle";
+        queryExpression.indexName="Lat"
+        
+        dynamoDBObjectMapper .query(DDBTableRow.self, expression: queryExpression) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            if (task.error != nil) {
+                print("Error: \(task.error)")
+                
+                let alertController = UIAlertController(title: "Failed to query a test table.", message: task.error.description, preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { UIAlertAction -> Void in
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                if (task.result != nil) {
+                    let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                    for item in paginatedOutput.items as! [DDBTableRow] {
+                        println("get: \(item.GroupTitle)")
+                     
+                            
+                           var lat = Double(item.Lat!)
+                           var log = Double(item.Log!)
+                            
+                           var coordinate=CLLocationCoordinate2D(latitude: lat,longitude: log)
+                        
+                            self.coordinates.append(coordinate)
+                            self.currentLocation=coordinate
+                        
+//                            if(self.coordinates.count>0){
+//                                println(self.coordinates.endIndex)
+//                                var last=self.coordinates[self.coordinates.endIndex]
+//                                
+//                                if(!self.isCoordEqual(last, p2: coordinate)){
+//                                    println("not equal to previous")
+//                                    self.coordinates.append(coordinate)
+//                                    self.currentLocation=coordinate
+//                                 }
+//                            }else{
+//                                self.coordinates.append(coordinate)
+//                                self.currentLocation=coordinate
+//                            }
+                      
+                    }
+                    
+                     self.updateMapFrame()
+
+                }
+             
+            }
+            return nil
+        })
+        
+       
+        
+
+    }
+    
+    func isCoordEqual(p1:CLLocationCoordinate2D, p2:CLLocationCoordinate2D) -> Bool {
+        return (p1.latitude==p2.latitude && p1.longitude==p2.latitude)
+    }
+    
+    func updateMapFrame() {
+        self.mapView.centerCoordinate = self.currentLocation!
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.corrdinats.removeAll(keepCapacity: false)
-        timer=NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateLocation", userInfo: nil, repeats: true)
+        self.coordinates.removeAll(keepCapacity: false)
+        timer=NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "updateLocation", userInfo: nil, repeats: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -78,8 +147,8 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
         
         // Add annotation `point` to the map
         mapView.addAnnotation(point)
-        corrdinats.append(center)
-     
+        coordinates.append(center)
+        currentLocation=center
     }
     
     

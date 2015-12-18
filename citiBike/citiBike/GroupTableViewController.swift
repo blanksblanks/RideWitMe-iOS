@@ -26,6 +26,10 @@ class GroupTableViewController: UITableViewController {
         self.setupTable()
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+       refreshList(false)
+    }
 
     func setupTable() {
         //See if the test table exists.
