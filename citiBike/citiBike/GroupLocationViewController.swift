@@ -18,7 +18,7 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
     
     var coordinates:[CLLocationCoordinate2D]=[]
     var currentLocation:CLLocationCoordinate2D?
-    
+    var point = MGLPointAnnotation()
     var timer = NSTimer()
     
     func updateLocation()
@@ -57,19 +57,7 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
                             self.coordinates.append(coordinate)
                             self.currentLocation=coordinate
                         
-//                            if(self.coordinates.count>0){
-//                                println(self.coordinates.endIndex)
-//                                var last=self.coordinates[self.coordinates.endIndex]
-//                                
-//                                if(!self.isCoordEqual(last, p2: coordinate)){
-//                                    println("not equal to previous")
-//                                    self.coordinates.append(coordinate)
-//                                    self.currentLocation=coordinate
-//                                 }
-//                            }else{
-//                                self.coordinates.append(coordinate)
-//                                self.currentLocation=coordinate
-//                            }
+                            self.point.coordinate=coordinate
                       
                     }
                     
@@ -85,6 +73,23 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
         
 
     }
+    
+    func mapView(mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
+        // Set the alpha for all shape annotations to 1 (full opacity)
+        return 1
+    }
+    
+    func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+        // Set the line width for polyline annotations
+        return 3.0
+    }
+    
+    func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+        // Give our polyline a unique color by checking for its `title` property
+        return UIColor.blueColor()
+    }
+
+    
     
     func isCoordEqual(p1:CLLocationCoordinate2D, p2:CLLocationCoordinate2D) -> Bool {
         return (p1.latitude==p2.latitude && p1.longitude==p2.latitude)
@@ -137,7 +142,8 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
         view.addSubview(mapView)
         
         mapView.delegate=self
-        let point = MGLPointAnnotation()
+        mapView.showsUserLocation=true
+        
         point.coordinate = center
         point.title = groupLocationInfo?.GroupTitle ?? ""
         var latLabel = round(lat*100)/100
