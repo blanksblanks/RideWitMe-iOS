@@ -134,6 +134,7 @@ class DDBTableRow :AWSDynamoDBObjectModel ,AWSDynamoDBModeling  {
     var Lat:NSNumber? = 0
     var Log:NSNumber? = 0
     
+    
     //should be ignored according to ignoreAttributes
     var internalName:String?
     var internalState:NSNumber?

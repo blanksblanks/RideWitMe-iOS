@@ -22,6 +22,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     
     var groupTitleField: UITextField?
     var passwordField:UITextField?
+    var tableRow:DDBTableRow?
     
     //share location button
     @IBAction func shareLocation(sender: AnyObject) {
@@ -56,15 +57,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
     }
     
     func createGroup(groupTitle:String, password:String?){
-        let groupTableRow=DDBTableRow()
-        groupTableRow.GroupTitle=groupTitle
-        groupTableRow.GroupId = groupTitle
+        var groupTableRow=DDBTableRow()
+        groupTableRow!.GroupTitle=groupTitle
+        groupTableRow!.GroupId = groupTitle
         if let pwd=password{
-            groupTableRow.Password=pwd
+            groupTableRow!.Password=pwd
         }else{
-            groupTableRow.Password=""
+            groupTableRow!.Password=""
         }
-        self.insertTableRow(groupTableRow)
+        self.insertTableRow(groupTableRow!)
     }
     
     
@@ -78,7 +79,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
                 }
                 alertController.addAction(okAction)
                 self.presentViewController(alertController, animated: true, completion: nil)
-                
+                self.tableRow=tableRow
                 
             } else {
                 print("Error: \(task.error)")
@@ -92,6 +93,35 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             
             return nil
         })
+    }
+    
+    func updateLocation(tableRow: DDBTableRow, lat:Int, log:Int){
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        println("update group:\(tableRow.GroupId)")
+        tableRow.Lat=lat
+        tableRow.Log=log
+        
+        dynamoDBObjectMapper .save(tableRow) .continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+            if (task.error == nil) {
+                let alertController = UIAlertController(title: "Succeeded", message: "Successfully updated the data into the table.", preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { UIAlertAction -> Void in
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+              
+            } else {
+                print("Error: \(task.error)")
+                
+                let alertController = UIAlertController(title: "Failed to update the data into the table.", message: task.error.description, preferredStyle: UIAlertControllerStyle.Alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel){UIAlertAction -> Void in
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            
+            return nil
+        })
+
     }
 
     
@@ -165,6 +195,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate, MGLMapViewDele
             var log=Int((self.currentLocation.coordinate.longitude))
             var speed=Int(self.currentLocation.speed)
             label.text="lat:\(lat) log:\(log) speed:\(speed)"
+            if let tableRow=self.tableRow{
+                 println("update location")
+                 updateLocation(tableRow, lat:lat, log:log)
+            }
+           
             
             var polyline = MGLPolyline(coordinates: &a, count: UInt(a.count))
             theMap.addAnnotation(polyline)

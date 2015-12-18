@@ -61,12 +61,56 @@ class GroupTableViewController: UITableViewController {
                 })
             } else {
                 //load table contents
-                //self.refreshList(true)
                 println("table exist")
+                self.refreshList(true)
             }
             
             return nil
         })
+    }
+
+    func refreshList(startFromBeginning: Bool)  {
+        if (self.lock?.tryLock() != nil) {
+            if startFromBeginning {
+                self.lastEvaluatedKey = nil;
+                self.doneLoading = false
+            }
+            
+            
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            
+            let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+            let queryExpression = AWSDynamoDBScanExpression()
+            queryExpression.exclusiveStartKey = self.lastEvaluatedKey
+            queryExpression.limit = 20;
+            dynamoDBObjectMapper.scan(DDBTableRow.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+                
+                if self.lastEvaluatedKey == nil {
+                    self.groupTableRows?.removeAll(keepCapacity: true)
+                }
+                
+                if task.result != nil {
+                    let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                    for item in paginatedOutput.items as! [DDBTableRow] {
+                        self.groupTableRows?.append(item)
+                    }
+                    
+                    println("lastEvaluatedKey \(self.lastEvaluatedKey)")
+                    self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
+                    if paginatedOutput.lastEvaluatedKey == nil {
+                        self.doneLoading = true
+                    }
+                }
+                
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                self.tableView.reloadData()
+                
+                if ((task.error) != nil) {
+                    print("Error: \(task.error)")
+                }
+                return nil
+            })
+        }
     }
 
     
@@ -86,7 +130,11 @@ class GroupTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 5
+        if let rowCount = self.groupTableRows?.count {
+            return rowCount;
+        } else {
+            return 0
+        }
     }
 
    
@@ -94,8 +142,18 @@ class GroupTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("GroupLabelCell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text="hello"
-        return cell
+        if let myTableRows = self.groupTableRows {
+            let item = myTableRows[indexPath.row]
+            cell.textLabel?.text = "Group: \(item.GroupTitle!)"
+            
+            
+            if indexPath.row == myTableRows.count - 1 && !self.doneLoading {
+                self.refreshList(false)
+            }
+        }
+        
+        return cell as UITableViewCell
+        
     }
     
 
