@@ -57,7 +57,9 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
                             self.coordinates.append(coordinate)
                             self.currentLocation=coordinate
                         
+                            self.mapView.removeAnnotation(self.point)
                             self.point.coordinate=coordinate
+                            self.mapView.addAnnotation(self.point)
                       
                     }
                     
@@ -137,12 +139,12 @@ class GroupLocationViewController: UIViewController, CLLocationManagerDelegate, 
         // set the map's center coordinate
         
         mapView.setCenterCoordinate(center,
-            zoomLevel: 15, animated: false)
+            zoomLevel: 12, animated: false)
         
         view.addSubview(mapView)
         
         mapView.delegate=self
-        mapView.showsUserLocation=true
+        //mapView.showsUserLocation=true
         
         point.coordinate = center
         point.title = groupLocationInfo?.GroupTitle ?? ""
